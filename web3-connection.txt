@@ -1,0 +1,38 @@
+Web3 & Blockchain Connection Code  (Meta Mask) in react
+
+import Web3 from "web3";
+
+    async componentWillMount(){
+        await this.LoadWeb3();
+        await this.LoadBchainData();
+    }
+
+    //Now to initialize the web3 into react
+    //This function connects the app with the blockchain
+
+    async LoadWeb3 (){
+
+        if(window.ethereum){   // metamask detection in active window
+             window.web3 = new Web3(window.ethereum);
+             await window.ethereum.enable();
+            console.log("1 ethereum browser detected for crypto transaction.")
+
+        }
+        else if(window.web3){
+            window.web3 = new Web3(window.web3.currentProvider);  //Any other ethereum browser detection in active winow
+            console.log("2 ethereum browser detected for crypto transaction.")
+
+        }
+        else{
+            alert("No ethereum browser detected for crypto transaction. Go checkout metamask")
+        }
+    }
+    
+    //Data syncing from blockchain to website
+    
+    async LoadBchainData (){
+
+       const web3 = window.web3
+       const accounts = await web3.eth.getAccounts()
+       console.log(accounts)
+    }
